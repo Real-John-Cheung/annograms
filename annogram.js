@@ -275,7 +275,10 @@ class Annogram {
     return resultDiv;
   }
 
-  async displayAnimated(poem, targetDiv, delayMs = 500, fadeInMs = 100){
+  async displayAnimated(poem, targetDiv, opts = {}){
+    let delayMs = opts.delayInMs || 500;
+    let fadeInMs = opts.fadeInAnimationDurationInMs || 100;
+    let maxWidth = opts.maxWidth || 1000; //in px
     const delay = function (n){
       return new Promise(function(resolve){
           setTimeout(resolve,n);
@@ -288,7 +291,8 @@ class Annogram {
       targetDiv.removeChild(targetDiv.firstChild);
     }
     targetDiv.classList.add("displayAnimated");
-    targetDiv.style.overflowX = "auto";
+    //targetDiv.style.overflowX = "auto";
+    targetDiv.style.maxWidth = maxWidth + "px";
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
       const meta = poem.meta[i];
